@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+sudo mkdir -p /cache
+sudo chown -R 1001:1001 /cache
+
 cd "$CI_PROJECT_DIR"
 
 # run full release build on "protected" branches
