@@ -292,7 +292,7 @@ jobs:
     timeout-minutes: 90
     # keep options from dind-large-setup but run on dind-small-setup
     runs-on:
-      labels: dind-small
+      labels: buildjet-16vcpu-ubuntu-2204
     if: ${{ github.event_name != 'merge_group' }}
     steps:
       - name: Checkout
