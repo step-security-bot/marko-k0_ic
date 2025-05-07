@@ -1,0 +1,66 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /ci/container
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /ci/src/dependencies
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /ic-os/boundary-guestos/context
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /ic-os/guestos/context
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /ic-os/hostos/context
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /ic-os/setupos/context
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: cargo
+    directory: /rs/crypto/internal/crypto_lib/threshold_sig/canister_threshold_sig/fe-derive
+    schedule:
+      interval: daily
+
+  - package-ecosystem: cargo
+    directory: /rs/universal_canister/impl
+    schedule:
+      interval: daily
+
+  - package-ecosystem: cargo
+    directory: /rs/validator/fuzz
+    schedule:
+      interval: daily

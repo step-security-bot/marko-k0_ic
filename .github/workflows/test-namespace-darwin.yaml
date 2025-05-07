@@ -16,6 +16,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: ${{ github.ref_name != 'master' }}
 
+permissions:
+  contents: read
+
 jobs:
   bazel-test-macos-apple-silicon:
     name: Bazel Test macOS Apple Silicon
@@ -23,11 +26,16 @@ jobs:
     runs-on: namespace-profile-darwin # profile created in namespace console
     if: ${{ github.repository == 'dfinity/ic' }} # only run on public repo, not private since Namespace runners are not configured there, so these CI jobs get stuck otherwise.
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
+        with:
+          egress-policy: audit
+
       - name: Set up Bazel cache
         run: |
           # Creates a bazelrc configuration fragment which tells bazel where the cache lives.
           nsc bazel cache setup --bazelrc=/tmp/bazel-cache.bazelrc
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       # Build and test, excluding 'upload' jobs that are not required on macOS (used in reproducibility tests)
       - name: Test

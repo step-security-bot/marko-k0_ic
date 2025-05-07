@@ -9,6 +9,9 @@ env:
   DOCKER_HUB_USER: ${{ vars.DOCKER_HUB_USER }}
   DOCKER_HUB_PASSWORD_RO: ${{ secrets.DOCKER_HUB_PASSWORD_RO }}
 
+permissions:
+  contents: read
+
 jobs:
   bazel-build-fuzzers-weekly:
     runs-on:
@@ -20,8 +23,13 @@ jobs:
         -v /cache:/cache
     timeout-minutes: 60 # 1 hour
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
+        with:
+          egress-policy: audit
+
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Before script
         id: before-script
         shell: bash
